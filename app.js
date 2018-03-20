@@ -12,7 +12,9 @@ l3 = nn.addDenseLayer(3);
 output = new Neuron(l3);
 nn.addLayer([output]);
 
-console.log(output.output);
 input1.output = 1;
 nn.forwardPass();
 console.log(output.output);
+
+renderer = new NetworkRenderer(nn, 'nnCanvas');
+renderer.render();
