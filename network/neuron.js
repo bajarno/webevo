@@ -5,7 +5,7 @@ class Neuron {
 
         this.inputWeights = [];
         for (let i = 0; i < inputs.length; i++) {
-            // Random weight [-1 1]
+            // Random weight in range [-1 1]
             let random_weight = Math.random() * 2 - 1;
             
             this.inputWeights.push(random_weight);

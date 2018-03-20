@@ -25,6 +25,13 @@ class NetworkRenderer {
             let x = (totalWidth / 2) + (-(this.network.layers.length - 1) + 2 * i) * 2 * neuronRadius;
             
             this.renderLayer(layer, x, neuronRadius);
+
+            if (i > 0) {
+                let previousLayer = this.network.layers[i - 1];
+                let leftX = x - neuronRadius * 3;
+                let rightX = x - neuronRadius;
+                this.renderConnections(previousLayer, layer, leftX, rightX, neuronRadius);
+            }
         }
     }
 
@@ -41,9 +48,38 @@ class NetworkRenderer {
 
     }
 
+    renderConnections(leftLayer, rightLayer, leftX, rightX, neuronRadius) {
+        let totalHeight = this.context.canvas.height;
+
+        for (let i = 0; i < rightLayer.length; i++) {
+            let rightNeuron = rightLayer[i];
+            let rightY = (totalHeight / 2) + (-(rightLayer.length - 1) + 2 * i) * 2 * neuronRadius;
+
+
+            for (let j = 0; j < rightNeuron.inputs.length; j++) {
+                let leftNeuron = rightNeuron.inputs[j];
+                let leftNeuronIndex = leftLayer.findIndex(neuron => neuron == leftNeuron);
+                let leftY = (totalHeight / 2) + (-(leftLayer.length - 1) + 2 * leftNeuronIndex) * 2 * neuronRadius;
+                
+                this.renderConnection(leftX, leftY, rightX, rightY, rightNeuron.inputWeights[j]);
+            }
+        }
+    }
+
     renderNeuron(neuron, x, y, radius) {
+        this.context.fillStyle = "#000000";
+
         this.context.beginPath();
         this.context.arc(x, y, radius, 0, 2*Math.PI);
+        this.context.fill();
+    }
+
+    renderConnection(leftX, leftY, rightX, rightY, weight) {
+        this.context.lineWidth = Math.abs(weight);
+        
+        this.context.beginPath();
+        this.context.moveTo(leftX, leftY);
+        this.context.lineTo(rightX, rightY);
         this.context.stroke();
     }
 

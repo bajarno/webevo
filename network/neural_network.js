@@ -28,4 +28,17 @@ class NeuralNetwork {
             }
         }
     }
+
+    process(input) {
+        let inputLayer = this.layers[0];
+        
+        for (let i = 0; i < inputLayer.length; i++) {
+            inputLayer[i].output = input[i];
+        }
+
+        this.forwardPass();
+
+        let outputLayer = this.layers[this.layers.length - 1];
+        return outputLayer.map(neuron => neuron.output);
+    }
 }
