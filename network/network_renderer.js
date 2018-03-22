@@ -83,7 +83,7 @@ class NetworkRenderer {
         this.context.stroke();
     }
 
-    renderBackground(color = "#9ea7b8") {
+    renderBackground(color = "#FFFFFF") {
         this.context.fillStyle = color;
         this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
     }
