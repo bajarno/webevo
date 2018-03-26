@@ -1,7 +1,7 @@
 class RaceTrack {
     constructor() {
-        this.minTrackWidth = 0.5;
-        this.maxTrackWidth = 3;
+        this.minTrackWidth = 5;
+        this.maxTrackWidth = 100;
     
         let node0 = new TrackNode(0, 0, 1);
         let node1 = new TrackNode(0, 1, 1);
@@ -25,7 +25,7 @@ class RaceTrack {
 
         let nextX = node1.x + Math.sin(angle) * distance;
         let nextY = node1.y + Math.cos(angle) * distance;
-        let nextWidth = Math.min(this.maxTrackWidth, Math.max(this.minTrackWidth, node1.width + randomGauss(0.5, -0.5)));
+        let nextWidth = Math.min(this.maxTrackWidth, Math.max(this.minTrackWidth, node1.width + randomGauss(1, -1)));
 
         let nextNode = new TrackNode(nextX, nextY, nextWidth);
 

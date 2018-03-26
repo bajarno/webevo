@@ -1,44 +1,34 @@
 nn = new NeuralNetwork();
 
-input1 = new Neuron();
-input2 = new Neuron();
-
-nn.addLayer([input1, input2]);
-
-l1 = nn.addDenseLayer(3);
-l2 = nn.addDenseLayer(3, relu);
-l3 = nn.addDenseLayer(3);
-
-output = new Neuron(l3);
-nn.addLayer([output]);
-input1.output = 1;
+nn.addDenseLayer(2);
+nn.addDenseLayer(3);
+nn.addDenseLayer(3, relu);
+nn.addDenseLayer(3);
+nn.addDenseLayer(1);
 
 networkRenderer = new NetworkRenderer(nn, 'networkCanvas');
 networkRenderer.render();
 
-nn.forwardPass();
 console.log(nn.process([1,0]));
 
 
+
 track = new RaceTrack();
+track.addRandomNodes(1000);
 trackRenderer = new TrackRenderer(track, 'trackCanvas');
+trackRenderer.render();
 
-function addNodes(amount, iteration) {
-    if (iteration < 100) {
-        track.addRandomNodes(amount);
-        trackRenderer.render();
-
-        window.setTimeout(addNodes.bind(null, amount, iteration + 1),10);
-    }
-}
-
-addNodes(50, 0);
+vehicle = new Vehicle();
+vehicleRenderer = new VehicleRenderer(vehicle, 'trackCanvas');
+vehicleRenderer.render();
 
 window.onresize = function(event) {
     let trackCanvas = document.getElementById('trackCanvas');
     trackCanvas.width = window.innerWidth;
     trackCanvas.height = window.innerHeight;
+
     trackRenderer.render();
+    vehicleRenderer.render();
     
     let networkCanvas = document.getElementById('networkCanvas');
     networkCanvas.width = networkCanvas.offsetWidth;
@@ -47,3 +37,16 @@ window.onresize = function(event) {
 };
 
 window.dispatchEvent(new Event('resize'));
+
+function step() {
+    vehicle.step(1);
+
+    trackRenderer.render();
+    vehicleRenderer.render();
+
+    window.setTimeout(step,1000/60);
+}
+
+vehicle.linSpeed = 1;
+vehicle.angSpeed = 0.05 * Math.PI;
+step();
