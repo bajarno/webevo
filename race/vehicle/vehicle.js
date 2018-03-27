@@ -10,6 +10,8 @@ class Vehicle {
         this.angSpeed = 0;
     }
     
+    // Step vehicles position forward dt seconds. Physics as described at:
+    // https://engineeringdotnet.blogspot.nl/2010/04/simple-2d-car-physics-in-games.html
     step(dt) {
         // Calculate current front wheel position.
         let frontWheelX = this.x + this.length/2 * Math.cos(this.angle);

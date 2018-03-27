@@ -12,7 +12,7 @@ class VehicleRenderer {
                 
         // Translate to the vehicle position with center of screen as origin.
         this.context.translate(
-            this.context.canvas.width/2 + this.vehicle.x,
+            this.context.canvas.width/8 + this.vehicle.x,
             this.context.canvas.height/2 + this.vehicle.y);
         
         // Rotate with vehicle angle plus 90', since vehicle points to right by default.
@@ -27,7 +27,7 @@ class VehicleRenderer {
             this.vehicle.width,
             this.vehicle.length);
 
-        this.context.fillStyle = "#000000";
+        this.context.fillStyle = "#FFFFFF";
         this.context.fill();
 
         // Restore previous context state

@@ -13,8 +13,8 @@ console.log(nn.process([1,0]));
 
 
 
-track = new RaceTrack();
-track.addRandomNodes(1000);
+trackGenerator = new TrackGenerator();
+track = trackGenerator.generate();
 trackRenderer = new TrackRenderer(track, 'trackCanvas');
 trackRenderer.render();
 
@@ -48,5 +48,5 @@ function step() {
 }
 
 vehicle.linSpeed = 1;
-vehicle.angSpeed = 0.05 * Math.PI;
+//vehicle.angSpeed = 0.05 * Math.PI;
 step();

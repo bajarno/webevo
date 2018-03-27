@@ -1,4 +1,4 @@
-function randomGauss(end = 1, start = 0) {
+function randomGauss(min, max) {
   let rand = 0;
 
   for (let i = 0; i < 6; i += 1) {
@@ -7,5 +7,5 @@ function randomGauss(end = 1, start = 0) {
 
   rand /= 6;
   
-  return start + rand * (end - start);
+  return min + rand * (max - min);
 }
