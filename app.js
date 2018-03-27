@@ -13,40 +13,5 @@ console.log(nn.process([1,0]));
 
 
 
-trackGenerator = new TrackGenerator();
-track = trackGenerator.generate();
-trackRenderer = new TrackRenderer(track, 'trackCanvas');
-trackRenderer.render();
-
-vehicle = new Vehicle();
-vehicleRenderer = new VehicleRenderer(vehicle, 'trackCanvas');
-vehicleRenderer.render();
-
-window.onresize = function(event) {
-    let trackCanvas = document.getElementById('trackCanvas');
-    trackCanvas.width = window.innerWidth;
-    trackCanvas.height = window.innerHeight;
-
-    trackRenderer.render();
-    vehicleRenderer.render();
-    
-    let networkCanvas = document.getElementById('networkCanvas');
-    networkCanvas.width = networkCanvas.offsetWidth;
-    networkCanvas.height = networkCanvas.offsetHeight;
-    networkRenderer.render();
-};
-
-window.dispatchEvent(new Event('resize'));
-
-function step() {
-    vehicle.step(1);
-
-    trackRenderer.render();
-    vehicleRenderer.render();
-
-    window.setTimeout(step,1000/60);
-}
-
-vehicle.linSpeed = 1;
-//vehicle.angSpeed = 0.05 * Math.PI;
-step();
+race = new Race();
+raceRenderer = new RaceRenderer(race, 'raceCanvas')

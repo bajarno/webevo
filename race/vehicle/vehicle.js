@@ -1,18 +1,28 @@
 class Vehicle {
-    constructor(width = 2, length = 5, x = 0, y = 0, angle = 0) {
+    constructor(track, width = 2, length = 5) {
+        this.track = track;
+        
         this.width = width;
         this.length = length;
-        this.x = x;
-        this.y = y;
-        this.angle = angle;
+
+        this.x = track.nodes[0].x;
+        this.y = track.nodes[0].y;
+        this.angle = track.nodes[0].angle;
+
+        this.closestNodeIndex = 0;
         
         this.linSpeed = 0;
         this.angSpeed = 0;
     }
     
-    // Step vehicles position forward dt seconds. Physics as described at:
-    // https://engineeringdotnet.blogspot.nl/2010/04/simple-2d-car-physics-in-games.html
     step(dt) {
+        this.move(dt);
+        this.detectCollision();
+    }
+
+    // Move vehicles position forward dt seconds. Physics as described at:
+    // https://engineeringdotnet.blogspot.nl/2010/04/simple-2d-car-physics-in-games.html
+    move(dt) {
         // Calculate current front wheel position.
         let frontWheelX = this.x + this.length/2 * Math.cos(this.angle);
         let frontWheelY = this.y + this.length/2 * Math.sin(this.angle);
@@ -33,5 +43,9 @@ class Vehicle {
         this.x = (frontWheelX + backWheelX)/2;
         this.y = (frontWheelY + backWheelY)/2;
         this.angle = Math.atan2(frontWheelY - backWheelY, frontWheelX - backWheelX);
+    }
+
+    detectCollision() {
+
     }
 }

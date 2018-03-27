@@ -4,6 +4,11 @@ class NetworkRenderer {
 
         let canvas = document.getElementById(canvasId);
         this.context = canvas.getContext('2d');
+
+        this.resize();
+        window.addEventListener('resize', this.resize.bind(this), true);
+        
+        requestAnimationFrame(this.render.bind(this));
     }
 
     render() {
@@ -33,6 +38,8 @@ class NetworkRenderer {
                 this.renderConnections(previousLayer, layer, leftX, rightX, neuronRadius);
             }
         }
+        
+        requestAnimationFrame(this.render.bind(this));
     }
 
     renderLayer(layer, x, neuronRadius) {
@@ -86,5 +93,12 @@ class NetworkRenderer {
     renderBackground(color = "#FFFFFF") {
         this.context.fillStyle = color;
         this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+    }
+
+    resize() {
+        this.context.canvas.width = this.context.canvas.offsetWidth;
+        this.context.canvas.height = this.context.canvas.offsetHeight;
+
+        this.render();
     }
 }

@@ -1,12 +1,9 @@
 class TrackRenderer {
-    constructor(track, canvasId) {
-        this.track = track;
-
-        let canvas = document.getElementById(canvasId);
-        this.context = canvas.getContext('2d');
+    constructor(context) {
+        this.context = context;
     }
 
-    render() {
+    render(track) {
         this.renderBackground();
 
         // Save context state to restore later
@@ -18,8 +15,8 @@ class TrackRenderer {
             this.context.canvas.height/2);
 
         
-        for (let i = 1; i < this.track.nodes.length; i++) {
-            this.renderSegment(this.track.nodes[i-1], this.track.nodes[i]);
+        for (let i = 1; i < track.nodes.length; i++) {
+            this.renderSegment(track.nodes[i-1], track.nodes[i]);
         }
         
         // Restore previous context state
