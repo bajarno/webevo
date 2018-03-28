@@ -4,7 +4,7 @@ class TrackGenerator {
         this.maxTrackWidth = 100;
         this.startTrackWIdth = 2*this.minTrackWidth;
 
-        this.minSegmentLength = 4;
+        this.minSegmentLength = 2;
         this.maxSegmentLength = 4;
 
         this.maxCornerAngle = 0.25*Math.PI;

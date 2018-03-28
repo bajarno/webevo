@@ -24,7 +24,7 @@ class VehicleRenderer {
             vehicle.width,
             vehicle.length);
 
-        this.context.fillStyle = "#FFFFFF";
+        this.context.fillStyle = vehicle.collided ? "#FF0000" : "#FFFFFF";
         this.context.fill();
 
         // Restore previous context state

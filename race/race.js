@@ -5,6 +5,7 @@ class Race {
 
         let vehicle = new Vehicle(this.track);
         vehicle.linSpeed = 1;
+        vehicle.angSpeed = 0.025*Math.PI;
 
         this.vehicles = [vehicle];
 

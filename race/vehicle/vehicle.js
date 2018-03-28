@@ -1,5 +1,5 @@
 class Vehicle {
-    constructor(track, width = 2, length = 5) {
+    constructor(track, width = 2, length = 6) {
         this.track = track;
         
         this.width = width;
@@ -10,6 +10,7 @@ class Vehicle {
         this.angle = track.nodes[0].angle;
 
         this.closestNodeIndex = 0;
+        this.collided = false;
         
         this.linSpeed = 0;
         this.angSpeed = 0;
@@ -44,8 +45,26 @@ class Vehicle {
         this.y = (frontWheelY + backWheelY)/2;
         this.angle = Math.atan2(frontWheelY - backWheelY, frontWheelX - backWheelX);
     }
-
+    
+    // Sets collided property depending on whether the vehicle currently intersects
+    // an edge of the track.
     detectCollision() {
+        for (let i = 1; i < this.track.nodes.length; i++) {
+            let node0 = this.track.nodes[i-1];
+            let node1 = this.track.nodes[i];
+            
+            // Check for intersection of car rect with two track edges.
+            if (lineRectIntersect(
+                node0.leftX, node0.leftY, node1.leftX, node1.leftY,
+                this.width, this.length, this.x, this.y, this.angle) ||
+                lineRectIntersect(
+                node0.rightX, node0.rightY, node1.rightX, node1.rightY,
+                this.width, this.length, this.x, this.y, this.angle)) {
+                this.collided = true;
+                return;
+            }
+        }
 
+        this.collided = false;
     }
 }
