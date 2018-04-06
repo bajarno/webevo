@@ -1,25 +1,26 @@
 class TrackGenerator {
     constructor() {
-        this.minTrackWidth = 5;
-        this.maxTrackWidth = 100;
-        this.startTrackWIdth = 2*this.minTrackWidth;
+        this.minTrackWidth = 40;
+        this.maxTrackWidth = 200;
+        this.startTrackWidth = 100;
 
-        this.minSegmentLength = 2;
-        this.maxSegmentLength = 4;
+        this.minSegmentLength = 20;
+        this.maxSegmentLength = 80;
 
         this.maxCornerAngle = 0.25*Math.PI;
         this.maxWidthDiff = 2;
 
-        this.nodeCount = 100;
+        this.nodeCount = 200;
     }
 
     generate() {
         let track = new Track();
+        
+        let node0 = new TrackNode(-this.maxSegmentLength, 0, 0, 0);
+        let node1 = new TrackNode(-this.maxSegmentLength, 0, this.startTrackWidth, 0);
+        let node2 = new TrackNode(this.maxSegmentLength, 0, this.startTrackWidth, 0);
 
-        let node0 = new TrackNode(0, 0, this.startTrackWIdth, 0);
-        let node1 = new TrackNode(this.minSegmentLength, 0, this.startTrackWIdth, 0);
-
-        track.nodes = [node0, node1];
+        track.nodes = [node0, node1, node2];
 
         this.addRandomNodes(track, this.nodeCount);
 

@@ -7,7 +7,7 @@ class NeuralNetwork {
         this.layers.push(layer);
     }
 
-    addDenseLayer(size, activationFunction = identity) {
+    addDenseLayer(size, activationFunction = afIdentity) {
         let previousLayer = this.layers[this.layers.length - 1];
 
         let layer = [];

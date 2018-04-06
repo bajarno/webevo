@@ -4,19 +4,17 @@ class Race {
         this.track = this.trackGenerator.generate();
         
         this.vehicles = [];
-                
-        let vehicle = new Vehicle(this.track);
-        vehicle.linSpeed = 1;
-        vehicle.angSpeed = 0.01*Math.PI;
-        this.addVehicle(vehicle);
 
-//         for (let i = 0; i < 40; i++) {
-//             let vehicle = new Vehicle(this.track);
-//             vehicle.linSpeed = 1;
-//             vehicle.angSpeed = (-0.0975+0.005*i)*Math.PI;
+        for (let i = 0; i < 50; i++) {
+            let network = new NeuralNetwork();
 
-//             this.addVehicle(vehicle);
-//         }
+            network.addDenseLayer(6);
+            network.addDenseLayer(4, afSigmoid);
+            network.addDenseLayer(2, afTanh);
+        
+            let vehicle = new Vehicle(this.track, network);
+            this.addVehicle(vehicle);
+        }
 
         this.step(1);
     }

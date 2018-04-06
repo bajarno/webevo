@@ -1,12 +1,13 @@
 class Vehicle {
-    constructor(track, width = 2, length = 6) {
+    constructor(track, network, width = 20, length = 60) {
         this.track = track;
-        
+        this.network = network;
+
         this.width = width;
         this.length = length;
 
-        this.x = track.nodes[0].x;
-        this.y = track.nodes[0].y;
+        this.x = 0;
+        this.y = 0;
         this.angle = track.nodes[0].angle;
 
         this.closestNodeIndex = 0;
@@ -14,23 +15,29 @@ class Vehicle {
         
         this.linSpeed = 0;
         this.angSpeed = 0;
-        this.distances = [];
+        this.distances = [0, 0, 0, 0, 0, 0, 0];
         
         // Constants
-        this.maxDistance = 20;
+        this.maxSpeed = 10;
+        this.maxRotation = 0.5*Math.PI;
+        this.maxDistance = 200;
     }
     
     step(dt) {
-        this.move(dt);
-        this.detectCollision();
-        this.calculateDistances();
-        
-//         console.log(this.distances.map(x => Math.round(x)));
+        if (!this.collided) {
+            this.move(dt);
+            this.detectCollision();
+            this.calculateDistances();
+        }
     }
 
     // Move vehicles position forward dt seconds. Physics as described at:
     // https://engineeringdotnet.blogspot.nl/2010/04/simple-2d-car-physics-in-games.html
     move(dt) {
+        let output = this.network.process(this.distances);
+        this.linSpeed = output[0] * this.maxSpeed;
+        this.angSpeed = output[1] * this.maxRotation;
+        
         // Calculate current front wheel position.
         let frontWheelX = this.x + this.length/2 * Math.cos(this.angle);
         let frontWheelY = this.y + this.length/2 * Math.sin(this.angle);
@@ -136,6 +143,5 @@ class Vehicle {
         }
         
         return distance(x, y, xi, yi);
-        
     }
 }
